@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgba(0,0,0,0.85);
+}
+
+body {
+    margin: 20px auto;
+    width: 80%;
+}
+
+@media (max-width: 767px) {
+    body {
+        margin: 20px auto;
+        width: 85%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        margin: 20px auto;
+        width: 90%;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 10px 0;
+    color: rgba(0,0,0,0.85);
+}
+
+small {
+    font-weight: lighter;
+    font-size: 75%;
+    color: rgba(0,0,0,0.5);
+}
+
+.comments {
+    width: 50%;
+}
+
+@media (max-width: 767px) {
+    .comments {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .comments {
+        width: 100%;
+    }
+}
+
+input, textarea {
+    background-color: none;
+    width: 95%;
+    border: none;
+    border: #ccc 1px solid;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+#reply input, #reply textarea {
+    background-color: none;
+    width: 90%;
+    border: none;
+    border: #ccc 1px solid;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+#comment {
+    border-top: 1px solid #000;
+    margin-top: 50px;
+}
+
+.btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    background-color: #FF1744;
+    color: white;
+    font-weight: bold;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover, .btn:focus {
+    background-color: #D50000;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin: 20px 0;
+}
+
+.author-grav {
+    border-radius: 50%;
+    margin: 10px 30px;
+}
+
+.left {
+    float: left;
+}
+
+.comment-item {
+    background-color: #f2f2f2;
+    padding: 30px 0;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.15);
+}
+
+.comment-item p, .reply-item p {
+    margin: 30px 30px;
+    clear: both;
+}
+
+.comment-item button, .reply-item button {
+    margin: 0 30px;
+}
+
+.reply-item {
+    background-color: #f2f2f2;
+    padding: 30px 0;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.15);
+    margin-left: 10%;
+}
+
+form {
+    margin: 10px;
+}
+
+#reply {
+    width: 90%;
+    margin: 30px auto 0 auto;
+}
+
+#reply .cancel-reply-link {
+    color: #FF1744;
+    text-decoration: none;
+    border-bottom: 1px solid #FF1744;
+    line-height: 3em;
+}
+
+#reply button {
+    margin: 0;
+}

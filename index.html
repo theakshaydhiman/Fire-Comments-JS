@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fire Comments JS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <h1>Fire Comments JS <br><small>Commenting system for static websites using Firebase Realtime Database</small></h1>
+    <hr><br>
+
+    <div class="comments">
+        <div>
+            <h2><span id="comments-count"></span> Comments</h2>
+            <div id="comments-container"></div>
+            <ul id="comments-list"></ul>
+        </div>
+        <div>
+            <span id="comment-container"></span>
+
+            <form id="comment" style="display:block;">
+                <h3 id="comment-form-title">Leave a comment</h3>
+                <textarea id="message" type="text" placeholder="Comment (HTML supported)" required></textarea>
+                <input id="name" type="text" placeholder="Name" required>
+                <input id="email" type="email" placeholder="Email" required>
+                <button class="btn" type="submit" name="action">Post Comment</button>
+            </form>
+
+            <form id="reply" style="display:none;">
+                <h3 id="reply-form-title"></h3>
+                <div id="cancel-reply"><a href="#!" class="cancel-reply-link">Cancel Reply</a></div>
+                <textarea id="message" type="text" placeholder="Comment (HTML supported)" required></textarea>
+                <input id="name" type="text" placeholder="Name" required>
+                <input id="email" type="email" placeholder="Email" required>
+                <button class="btn" type="submit" name="action">Post Comment</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <small>&copy; 2018 Akshay Dhiman | MIT License</small>
+
+    <!-- Dependencies -->
+    <script src="js/md5.js"></script>
+    <script src="js/timeago.js"></script>
+    <script src="js/xss-filters.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyD-rt_UXJfqYIKisMXfY5ByPnpmu8BNl70",
+        authDomain: "fire-comments-js.firebaseapp.com",
+        databaseURL: "https://fire-comments-js.firebaseio.com",
+        projectId: "fire-comments-js",
+        storageBucket: "fire-comments-js.appspot.com",
+        messagingSenderId: "733858283742"
+    };
+    firebase.initializeApp(config);
+    </script>
+
+    <!-- FireComments -->
+    <script src="fire-comments.js"></script>
+</body>
+</html>
