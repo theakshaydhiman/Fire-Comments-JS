@@ -83,7 +83,7 @@ Submitting the comments will show a "Permissions denied" error because the defau
   }
 }
 ```
-Once, you're done testing, you must change the write permissions to false and add a `$slug` rule to allow comment submissions.
+Once you're done testing, you must change the `.write` permissions to `false` and add a `$slug` rule to allow comment submissions.
 ```json
 {
   "rules": {
