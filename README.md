@@ -73,6 +73,31 @@ Download the `fire-comments.js` [from here](https://github.com/theakshaydhiman/F
 ```html
 <script src="fire-comments.js"></script>
 ```
+## Configure Firebase Realtime Database Rules
+Submitting the comments will show a "Permissions denied" error because the default rules of Realtime Databse are restricted to Auth only. **For testing purposes only**, set the `.read` and `.write` rules to `true`.
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
+Once, you're done testing, you must change the write permissions to false and add a `$slug` rule to allow comment submissions.
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": false,
+    "$slug": {
+          ".write": "!data.exists()",
+          "$message": {
+            ".write": "!data.exists() && newData.exists()"
+          }
+        }
+  }
+}
+```
 
 ## Testing
 Submit some comments and check your Firebase Realtime Database path.
@@ -80,4 +105,4 @@ It should look something like this `[project-name]/comments/[path]/[key]`
 
 ## License
 
-The Fire Comments JS is licensed under the [MIT license](https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/LICENSE).
+Fire Comments JS is licensed under the [MIT license](https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/LICENSE).
