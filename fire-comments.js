@@ -1,10 +1,14 @@
 /* 
-* Fire Comments JS v0.2.2 (https://github.com/theakshaydhiman/Fire-Comments-JS)
+* Fire Comments JS v0.2.3 (https://github.com/theakshaydhiman/Fire-Comments-JS)
 * Copyright 2018 Akshay Dhiman
 * MIT License (https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/LICENSE)
 */
 
+
+
 ( () => {
+
+  "use strict";
 
   // Create a Firebase Realtime Database compatible version of the URL.
   const slugify = (text) => text
@@ -20,6 +24,12 @@
 
   // Get Value of an Element.
   const getVal = id => document.getElementById(id).value;
+
+  // DOM Variables.
+  const comment = id('comment');
+  const reply = id('reply');
+  const replyFormTitle = id('reply-form-title');
+  const commentsCount = id('comments-count');
   
   // Reference to current URL.
   const commentsRef = firebase.database().ref('comments').child(slugify(window.location.pathname));
@@ -35,7 +45,7 @@
   };
 
   // Submit new comment at the bottom.
-  id('comment').addEventListener('submit', (e) => {
+  comment.addEventListener('submit', (e) => {
     let name = getVal('name');
     let email = getVal('email');
     let message = getVal('message');
@@ -44,7 +54,7 @@
     e.preventDefault();
     saveComment(name, md5Email, message, commentsRef);
     alert('Your comment has been submitted!');
-    id('comment').reset();
+    comment.reset();
   });
 
 
@@ -81,10 +91,10 @@
       window.fexecuted = false;
 
       // Get the reply form.
-      id('reply-form-title').innerText = 'Reply';
+      replyFormTitle.innerText = 'Reply';
       e.target.insertAdjacentElement('afterend', id('reply'));
-      id('reply').style.display = 'block';
-      id('comment').style.display = 'none';
+      reply.style.display = 'block';
+      comment.style.display = 'none';
       
       // Submit reply.
       id('reply').addEventListener('submit', e => {
@@ -95,19 +105,19 @@
 
         e.preventDefault();
         saveReply(name, md5Email, message);
-        id('reply').reset();
+        reply.reset();
 
-        id('reply').style.display = 'none';
-        id('comment').style.display = 'block';
+        reply.style.display = 'none';
+        comment.style.display = 'block';
         window.fexecuted = true;
       });
 
       // Cancel Reply.
       id('cancel-reply').addEventListener('click', () => {
-        id('reply').style.display = 'none';
-        id('comment').style.display = 'block';
+        reply.style.display = 'none';
+        comment.style.display = 'block';
         window.linkKey = null;
-        window.fexecuted = true;        
+        window.fexecuted = true;   
       });
       
     } else { return; }
@@ -170,15 +180,23 @@
 
   // Count the number of comments.
   commentsRef.once("value").then( snap => {
-      id('comments-count').innerText = snap.numChildren() + repCount;
+      commentsCount.innerText = snap.numChildren() + repCount;
   });
 
 })();
 
-// Bugs:
-// 1. Reply when submitted doesn't show in right order unless the page is refreshed.
-// 2. Reply submit, then comment submit gives error.
+/*
+Bugs:
+1. Reply when submitted doesn't show in right order unless the page is refreshed.
+2. Reply submit, then comment submit gives error.
 
-// Features to be added:
-// 1. Receive notifications when new comments are submitted via nodemailer.
-// 2. Add markdown support.
+Features to be added:
+1. Receive notifications when new comments are submitted via nodemailer.
+2. Add markdown support.
+
+# v0.2.0 - v0.3.0
+* Using strict mode.
+* Fixed syntax errors.
+* Defined variables of DOM elements initially.
+
+*/
