@@ -3,7 +3,7 @@ Commenting system for static websites using Firebase Realtime Database.
 
 ## Demo
 
-[Fire Comments JS Demo](https://fire-comments-js.firebaseapp.com/).
+[Fire Comments JS Demo](https://theakshaydhiman.github.io/fire-comments/).
 
 ## Features
 
