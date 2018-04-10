@@ -69,9 +69,9 @@ Fire Comments JS has four dependencies. Feel free to use their CDN links if you 
 <script src="js/xss-filters.js"></script>
 <!-- Paste your Firebase code here !>
 ```
-Download the `fire-comments.js` [from here](https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/fire-comments.js) and include this in the end.
+Download the **`fire-comments.min.js` [from here](https://github.com/theakshaydhiman/Fire-Comments-JS/releases/download/0.3.0/fire-comments.min.js)** and include this in the end.
 ```html
-<script src="fire-comments.js"></script>
+<script src="fire-comments.min.js"></script>
 ```
 ## Configure Firebase Realtime Database Rules
 Submitting the comments will show a "Permissions denied" error because the default rules of Realtime Databse are restricted to Auth only. **For testing purposes only**, set the `.read` and `.write` rules to `true`.
