@@ -1,5 +1,5 @@
 /* 
-* Fire Comments JS v0.3.1 (https://github.com/theakshaydhiman/Fire-Comments-JS)
+* Fire Comments JS v0.3.2 (https://github.com/theakshaydhiman/Fire-Comments-JS)
 * Copyright 2018 Akshay Dhiman
 * MIT License (https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/LICENSE)
 */
@@ -84,7 +84,6 @@
     toggleReplyForm(val1, val2) {
       this.reply.style.display = val1;
       this.comment.style.display = val2;
-      
     }
   }
 
@@ -105,15 +104,8 @@
     showComments() {
       // Make links nofollow.
       this.c.message = this.makeNoFollow(this.c.message);
-      
-      // Create comment item markup.
-      this.html = `<div class="comment-item">
-      <div class="left"><img class="author-grav" src="https://www.gravatar.com/avatar/${this.c.md5Email}?s=80&d=retro"></div>
-      <h3>${xssFilters.inHTMLData(this.c.name)}</h3>
-      <small>${timeago().format(this.c.postedAt)}</small>
-      <p>${xssFilters.inHTMLComment(this.c.message)}</p>
-      <button class="comment-reply btn" data-id="${this.key}">Reply</button>
-      </div>`;
+
+      this.html = this.createMarkup(this.c, 'comment');
   
       // Append values to a new list item.
       this.li.innerHTML = this.html;
@@ -131,14 +123,8 @@
       
         // Make links nofollow.
         r.message = this.makeNoFollow(r.message);
-      
-        let html = `<div class="reply-item">
-        <div class="left"><img class="author-grav" src="https://www.gravatar.com/avatar/${r.md5Email}?s=80&d=retro"></div>
-        <h3>${xssFilters.inHTMLData(r.name)}</h3>
-        <small>${timeago().format(r.postedAt)}</small>
-        <p>${xssFilters.inHTMLComment(r.message)}</p>
-        <button class="comment-reply btn" data-id="${this.key}">Reply</button>
-        </div>`;
+
+        let html = this.createMarkup(r, 'reply');
       
         // Append values to a new list item.
         liRep.innerHTML = html;
@@ -146,6 +132,23 @@
 
         commentCount += 1;
       });
+    }
+
+    createMarkup(s, t) {
+      let type;
+      if(t === 'comment') {
+        type = 'comment';
+      } else if(t === 'reply') {
+        type = 'reply';
+      }
+      let html = `<div class="${type}-item">
+        <div class="left"><img class="author-grav" src="https://www.gravatar.com/avatar/${s.md5Email}?s=80&d=retro"></div>
+        <h3>${xssFilters.inHTMLData(s.name)}</h3>
+        <small>${timeago().format(s.postedAt)}</small>
+        <p>${xssFilters.inHTMLComment(s.message)}</p>
+        <button class="comment-reply btn" data-id="${this.key}">Reply</button>
+        </div>`;
+      return html;
     }
   }
 
@@ -202,14 +205,14 @@
     g.notif.style.display = "block";
     setTimeout( () => {
       g.notif.style.display = "none";
+
+      // reload() because of two bugs:
+      // 1. Unexpected behavior. After reply submission, if a comment is submitted, the fields are not properly submitted.
+      // 2. Bad UX. New reply is added to the bottom, even after submitting somewhere in the middle.
+      window.location.reload();
     }, 3000);
 
     s.fexecuted = true;
-    
-    // Window.reload() because of two bugs:
-    // 1. Unexpected behavior. After reply submission, if a comment is submitted, the fields are not properly submitted.
-    // 2. Bad UX. New reply is added to the bottom, even after submitting somewhere in the middle.
-    window.reload();
   });
 
   // Cancel reply button listener.
