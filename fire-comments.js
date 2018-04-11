@@ -1,5 +1,5 @@
 /* 
-* Fire Comments JS v0.3.0 (https://github.com/theakshaydhiman/Fire-Comments-JS)
+* Fire Comments JS v0.3.1 (https://github.com/theakshaydhiman/Fire-Comments-JS)
 * Copyright 2018 Akshay Dhiman
 * MIT License (https://github.com/theakshaydhiman/Fire-Comments-JS/blob/master/LICENSE)
 */
@@ -17,6 +17,7 @@
       this.commentsCount = this.id('comments-count');
       this.ulList = this.id('comments-list');
       this.cancelReply = this.id('cancel-reply');
+      this.notif = this.id('notif');
 
       // Reference to the current URL.
       this.commentsRef = firebase.database().ref('comments').child(this.slugify(window.location.pathname));
@@ -80,14 +81,10 @@
       }
     }
 
-    showReplyForm() {
-      this.reply.style.display = 'block';
-      this.comment.style.display = 'none';
-    }
-
-    hideReplyForm() {
-      this.reply.style.display = 'none';
-      this.comment.style.display = 'block';
+    toggleReplyForm(val1, val2) {
+      this.reply.style.display = val1;
+      this.comment.style.display = val2;
+      
     }
   }
 
@@ -115,7 +112,7 @@
       <h3>${xssFilters.inHTMLData(this.c.name)}</h3>
       <small>${timeago().format(this.c.postedAt)}</small>
       <p>${xssFilters.inHTMLComment(this.c.message)}</p>
-      <button id="creply" class="comment-reply btn"><span id="ckey" style="display:none;">${this.key}</span>Reply</button>
+      <button class="comment-reply btn" data-id="${this.key}">Reply</button>
       </div>`;
   
       // Append values to a new list item.
@@ -140,7 +137,7 @@
         <h3>${xssFilters.inHTMLData(r.name)}</h3>
         <small>${timeago().format(r.postedAt)}</small>
         <p>${xssFilters.inHTMLComment(r.message)}</p>
-        <button id="creply" class="comment-reply btn"><span id="ckey" style="display:none;">${this.key}</span>Reply</button>
+        <button class="comment-reply btn" data-id="${this.key}">Reply</button>
         </div>`;
       
         // Append values to a new list item.
@@ -164,21 +161,27 @@
 
     e.preventDefault();
     s.saveComment(name, md5Email, message);
-    alert('Your comment has been submitted!');
+
+    // Toggle submit notification.
+    g.notif.style.display = "block";
+    setTimeout( () => {
+      g.notif.style.display = "none";
+    }, 3000);
+
     comment.reset();
   });
 
   // Listener to the reply button.
   document.addEventListener('click', e => {
-    if(e.target.id === "creply"){
+    if(e.target.classList.contains('comment-reply')) {
 
-      // Find the key of the clicked "Reply" button and set it to linkKey.
-      s.linkKey = e.target.querySelector('#ckey').innerText;
+      // Find the key of the clicked "Reply" button from 'data-id' attribute and set it to linkKey.
+      s.linkKey = e.target.dataset.id;
       s.fexecuted = false;
 
       // Get the reply form.
       e.target.insertAdjacentElement('afterend', g.reply);
-      s.showReplyForm();
+      s.toggleReplyForm('block', 'none');
 
     } else { return; }
   });
@@ -193,9 +196,14 @@
     s.saveReply(name, md5Email, message);
     g.reply.reset();
 
-    s.hideReplyForm();
+    s.toggleReplyForm('none', 'block');
 
-    alert('Your reply has been submitted!');
+    // Toggle submit notification.
+    g.notif.style.display = "block";
+    setTimeout( () => {
+      g.notif.style.display = "none";
+    }, 3000);
+
     s.fexecuted = true;
     
     // Window.reload() because of two bugs:
@@ -206,7 +214,7 @@
 
   // Cancel reply button listener.
   g.cancelReply.addEventListener('click', () => {
-    s.hideReplyForm();
+    s.toggleReplyForm('none', 'block');
     s.linkKey = null;
     s.fexecuted = true;   
   });
