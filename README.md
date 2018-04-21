@@ -16,8 +16,6 @@ Fire Comments JS is a server-less, PHP-less, SQL-less and Disqus-less way to add
 * Prevents harmful XSS code to be rendered.
 * You have full control over your data. Unlike any 3rd-party company such as Disqus.
 
-**Disclaimer:** This code has bugs. I'd love to hear suggestions/fixes. More features (Markdown, email notifications) will be added soon.
-
 ## Getting Started
 Use this markup in your `.html` file:
 ```html
