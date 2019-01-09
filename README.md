@@ -72,7 +72,7 @@ Download the **`fire-comments.min.js` [from here](https://github.com/theakshaydh
 <script src="fire-comments.min.js"></script>
 ```
 ## Configure Firebase Realtime Database Rules
-Submitting the comments will show a "Permissions denied" error because the default rules of Realtime Databse are restricted to Auth only. **For testing purposes only**, set the `.read` and `.write` rules to `true`.
+Submitting the comments will show a "Permissions denied" error because the default rules of Realtime Database are restricted to Auth only. **For testing purposes only**, set the `.read` and `.write` rules to `true`.
 ```json
 {
   "rules": {
